@@ -40,14 +40,17 @@ public class TopBottomAnimation: NSObject, Animator {
     weak var messageView: UIView?
     weak var containerView: UIView?
     var context: AnimationContext?
+    var config: SwiftMessages.Config
 
-    public init(style: Style) {
+    public init(style: Style, config: SwiftMessages.Config) {
         self.style = style
+        self.config = config
     }
 
-    init(style: Style, delegate: AnimationDelegate) {
+    init(style: Style, delegate: AnimationDelegate, config: SwiftMessages.Config) {
         self.style = style
         self.delegate = delegate
+        self.config = config
     }
 
     public func show(context: AnimationContext, completion: @escaping AnimationCompletion) {
@@ -107,7 +110,7 @@ public class TopBottomAnimation: NSObject, Animator {
         case .bottom:
             view.transform = CGAffineTransform(translationX: 0, y: animationDistance)
         }
-        if context.interactiveHide {
+        if context.interactiveHide && config.backGroundTapEnable {
             if let view = view as? BackgroundViewable {
                 view.backgroundView.addGestureRecognizer(panGestureRecognizer)
             } else {

@@ -237,7 +237,12 @@ open class SwiftMessages {
     public struct Config {
         
         public init() {}
-        
+
+        /**
+         Specifies whether to enable background tap dismiss.
+         */
+        public var backGroundTapEnable = true
+
         /**
          Specifies whether the message view is displayed at the top or bottom
          of the selected presentation container. The default is `.Top`.
@@ -625,7 +630,10 @@ open class SwiftMessages {
     }
 
     fileprivate func internalHide(presenter: Presenter) {
-        if presenter == _current {
+        guard presenter.config.backGroundTapEnable else {
+            return
+        }
+        if presenter == _current, presenter.config.backGroundTapEnable {
             hideCurrent()
         } else {
             queue = queue.filter { $0 != presenter }

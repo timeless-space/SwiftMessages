@@ -226,7 +226,7 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 
 extension SwiftMessagesSegue {
     /// A convenience method for configuring some pre-defined layouts that mirror a subset of `MessageView.Layout`.
-    public func configure(layout: Layout) {
+    public func configure(layout: Layout, config: SwiftMessages.Config) {
         messageView.bounceAnimationOffset = 0
         containment = .content
         containerView.cornerRadius = 0
@@ -236,13 +236,13 @@ extension SwiftMessagesSegue {
         case .topMessage:
             messageView.layoutMarginAdditions = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
             messageView.collapseLayoutMarginAdditions = false
-            let animation = TopBottomAnimation(style: .top)
+            let animation = TopBottomAnimation(style: .top, config: config)
             animation.springDamping = 1
             presentationStyle = .custom(animator: animation)
         case .bottomMessage:
             messageView.layoutMarginAdditions = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
             messageView.collapseLayoutMarginAdditions = false
-            let animation = TopBottomAnimation(style: .bottom)
+            let animation = TopBottomAnimation(style: .bottom, config: config)
             animation.springDamping = 1
             presentationStyle = .custom(animator: animation)
         case .topCard:
@@ -263,7 +263,7 @@ extension SwiftMessagesSegue {
             messageView.collapseLayoutMarginAdditions = true
             containerView.cornerRadius = 15
             containerView.roundsLeadingCorners = true
-            let animation = TopBottomAnimation(style: .top)
+            let animation = TopBottomAnimation(style: .top, config: config)
             animation.springDamping = 1
             presentationStyle = .custom(animator: animation)
         case .bottomTab:
@@ -272,7 +272,7 @@ extension SwiftMessagesSegue {
             messageView.collapseLayoutMarginAdditions = true
             containerView.cornerRadius = 15
             containerView.roundsLeadingCorners = true
-            let animation = TopBottomAnimation(style: .bottom)
+            let animation = TopBottomAnimation(style: .bottom, config: config)
             animation.springDamping = 1
             presentationStyle = .custom(animator: animation)
         case .centered:
